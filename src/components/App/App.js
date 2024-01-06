@@ -84,7 +84,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} />
+        <Navbar handleLogout={handleLogout} />
         <Routes>
           <Route
             path="/"
@@ -100,17 +100,17 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login user={user} setUser={setUser} />}
+            element={<Login />}
           />
           <Route
             path="/register"
-            element={<Register user={user} setUser={setUser} />}
+            element={<Register />}
           />
           <Route
             path="/posts/:postId"
             element={<PostDetail user={user} updatePost={updatePost} />}
           />
-          <Route path="*" element={<NotFound user={user} error={error} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

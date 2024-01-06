@@ -2,9 +2,9 @@ import { useLoginForm } from "hooks/useLoginForm";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
-export default function Login({ user, setUser }) {
+export default function Login() {
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
-    useLoginForm({ user, setUser });
+    useLoginForm();
   return (
     <div className="Login">
       <div className="card">

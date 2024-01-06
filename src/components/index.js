@@ -10,3 +10,6 @@ export { default as PostDetail } from "./PostDetail/PostDetail";
 export { default as Register } from "./Register/Register";
 export { default as Stars } from "./Stars/Stars";
 export { default as StarsInput } from "./StarsInput/StarsInput";
+export { default as Facebook } from "./Icons/Facebook"
+export { default as Instagram } from "./Icons/Instagram"
+export { default as Twitter } from "./Icons/Twitter"

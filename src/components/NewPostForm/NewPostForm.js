@@ -1,10 +1,11 @@
 import { useState } from "react"
-// import axios from "axios"
-import apiClient from "../../services/apiClient"
-import NotAllowed from "../NotAllowed/NotAllowed"
+import apiClient from "services/apiClient"
+import {NotAllowed} from "components"
+import { useAuthContext } from "contexts/auth"
 import "./NewPostForm.css"
 
-export default function NewPostForm({ user, addPost }) {
+export default function NewPostForm({ addPost }) {
+  const { user } = useAuthContext()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [form, setForm] = useState({
@@ -30,27 +31,6 @@ export default function NewPostForm({ user, addPost }) {
 
     setIsLoading(false)
   }
-
-  // const handleOnSubmit = async (e) => {
-  //   e.preventDefault()
-  //   setIsLoading(true)
-
-  //   try {
-  //     const res = await axios.post(`http://localhost:3001/posts`, form)
-  //     if (res?.data?.post) {
-  //       addPost(res.data.post)
-  //       setForm({ caption: "", imageUrl: "" })
-  //     } else {
-  //       setError("Something went wrong with post creation.")
-  //     }
-  //   } catch (err) {
-  //     console.log(err)
-  //     const message = err?.response?.data?.error?.message
-  //     setError(message ?? String(err))
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
 
   const renderForm = () => {
     if (!user?.email) {

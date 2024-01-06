@@ -1,13 +1,12 @@
-import Post from "Post/Post"
-import NewPostForm from "NewPostForm/NewPostForm"
-import "./Home.css"
+import { NewPostForm, Post } from 'components'
+import "./Home.css";
 
-export default function Home({ user, isFetching, posts, addPost, error }) {
+export default function Home({ isFetching, posts, addPost, error }) {
   return (
     <div className="Home">
       <h1 className="intro">Rate My Setup</h1>
 
-      <NewPostForm user={user} addPost={addPost} />
+      <NewPostForm addPost={addPost} />
 
       <div className="feed">
         {error ? <h2 className="error">{error}</h2> : null}
@@ -17,5 +16,5 @@ export default function Home({ user, isFetching, posts, addPost, error }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

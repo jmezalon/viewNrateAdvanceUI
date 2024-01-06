@@ -2,9 +2,9 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 import { useRegistrationform } from "hooks/useRegistrationForm";
 
-export default function Register({ user, setUser }) {
+export default function Register() {
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
-    useRegistrationform({ user, setUser });
+    useRegistrationform();
 
   return (
     <div className="Signup">

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
-import Twitter from "../Icons/Twitter"
-import Instagram from "../Icons/Instagram"
-import Facebook from "../Icons/Facebook"
+import {Facebook, Instagram, Twitter} from "components"
+import { useAuthContext } from "contexts/auth"
 import "./Navbar.css"
 
-export default function Navbar({ user, handleLogout }) {
+export default function Navbar({ handleLogout }) {
+  const {user } = useAuthContext()
   return (
     <nav className="Navbar">
       <div className="content">

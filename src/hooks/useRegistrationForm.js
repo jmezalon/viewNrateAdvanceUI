@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuthenticationForm } from "./useAuthenticationForm";
 import apiClient from "services/apiClient";
+import { useAuthContext } from "contexts/auth";
 
-export const useRegistrationform = ({ user, setUser }) => {
+export const useRegistrationform = () => {
+  const { user, setUser } = useAuthContext()
   const { form, errors, setErrors, handleOnInputChange } =
     useAuthenticationForm({ user });
   const [isProcessing, setIsProcessing] = useState(false);

@@ -1,6 +1,6 @@
 import "./NotFound.css"
 
-export default function NotFound({ user, error }) {
+export default function NotFound() {
   return (
     <div className="NotFound">
       <div className="cta">
