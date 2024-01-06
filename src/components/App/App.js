@@ -8,11 +8,20 @@ import {
   PostDetail,
   Register,
 } from "components";
+import { AuthContextProvider, useAuthContext } from "contexts/auth";
 import apiClient from "services/apiClient";
 import "./App.css";
 
-export default function App() {
-  const [user, setUser] = useState({});
+export default function AppContainer() {
+  return (
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
+  )
+}
+
+function App() {
+  const { user, setUser } = useAuthContext()
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
@@ -48,7 +57,7 @@ export default function App() {
       apiClient.setToken(token);
       fetchUser();
     }
-  }, []);
+  }, [setUser]);
 
   const addPost = (newPost) => {
     setPosts((oldPosts) => [newPost, ...oldPosts]);

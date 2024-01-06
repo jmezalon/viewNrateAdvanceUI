@@ -1,5 +1,5 @@
-import Post from "../Post/Post"
-import NewPostForm from "../NewPostForm/NewPostForm"
+import Post from "Post/Post"
+import NewPostForm from "NewPostForm/NewPostForm"
 import "./Home.css"
 
 export default function Home({ user, isFetching, posts, addPost, error }) {
@@ -13,7 +13,7 @@ export default function Home({ user, isFetching, posts, addPost, error }) {
         {error ? <h2 className="error">{error}</h2> : null}
         {isFetching ? <h2>Loading...</h2> : null}
         {posts?.map((post) => (
-          <Post post={post} key={post.id} user={user} />
+          <Post post={post} key={post.id} />
         ))}
       </div>
     </div>

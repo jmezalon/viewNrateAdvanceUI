@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
-import Stars from "../Stars/Stars"
-import { formatRating, formatDate } from "../../utils/format"
+import {Stars} from "components"
+import { formatRating, formatDate } from "utils/format"
+import { useAuthContext } from "contexts/auth"
 import "./Post.css"
 
-export default function Post({ post, user }) {
+export default function Post({ post }) {
+  const { user } = useAuthContext()
   const userOwnsPost = user?.username && post?.username === user?.username
 
   return (
