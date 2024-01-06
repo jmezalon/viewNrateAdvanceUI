@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import apiClient from "../../services/apiClient"
-import Stars from "../Stars/Stars"
-import StarsInput from "../StarsInput/StarsInput"
+import apiClient from "services/apiClient"
+import {Stars, StarsInput } from "components"
+import { useAuthContext } from "contexts/auth"
 import { formatRating, formatDate } from "../../utils/format"
 import "./PostDetail.css"
 
@@ -21,7 +21,8 @@ const fetchPostById = async ({ postId, setIsFetching, setError, setPost, setCapt
   setIsFetching(false)
 }
 
-export default function PostDetail({ user, updatePost }) {
+export default function PostDetail({ updatePost }) {
+  const { user } = useAuthContext()
   const { postId } = useParams()
   const [post, setPost] = useState(null)
   const [rating, setRating] = useState(null)

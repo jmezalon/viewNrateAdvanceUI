@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom"
-import {Facebook, Instagram, Twitter} from "components"
-import { useAuthContext } from "contexts/auth"
-import "./Navbar.css"
+import { Link } from "react-router-dom";
+import { Facebook, Instagram, Twitter } from "components";
+import { useAuthContext } from "contexts/auth";
+import "./Navbar.css";
 
-export default function Navbar({ handleLogout }) {
-  const {user } = useAuthContext()
+export default function Navbar() {
+  const { user, handleLogout } = useAuthContext();
   return (
     <nav className="Navbar">
       <div className="content">
@@ -47,5 +47,5 @@ export default function Navbar({ handleLogout }) {
         </ul>
       </div>
     </nav>
-  )
+  );
 }

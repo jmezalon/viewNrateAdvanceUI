@@ -8,7 +8,7 @@ import {
   PostDetail,
   Register,
 } from "components";
-import { AuthContextProvider, useAuthContext } from "contexts/auth";
+import { AuthContextProvider } from "contexts/auth";
 import apiClient from "services/apiClient";
 import "./App.css";
 
@@ -21,7 +21,6 @@ export default function AppContainer() {
 }
 
 function App() {
-  const { user, setUser } = useAuthContext()
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
@@ -44,21 +43,6 @@ function App() {
     fetchPosts();
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await apiClient.fetchUserFromToken();
-      if (data) {
-        setUser(data.user);
-      }
-    };
-
-    const token = localStorage.getItem("rate_my_setup_token");
-    if (token) {
-      apiClient.setToken(token);
-      fetchUser();
-    }
-  }, [setUser]);
-
   const addPost = (newPost) => {
     setPosts((oldPosts) => [newPost, ...oldPosts]);
   };
@@ -75,22 +59,15 @@ function App() {
     });
   };
 
-  const handleLogout = async () => {
-    await apiClient.logoutUser();
-    setUser({});
-    setError(null);
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar handleLogout={handleLogout} />
+        <Navbar />
         <Routes>
           <Route
             path="/"
             element={
               <Home
-                user={user}
                 error={error}
                 posts={posts}
                 addPost={addPost}
@@ -108,7 +85,7 @@ function App() {
           />
           <Route
             path="/posts/:postId"
-            element={<PostDetail user={user} updatePost={updatePost} />}
+            element={<PostDetail updatePost={updatePost} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
