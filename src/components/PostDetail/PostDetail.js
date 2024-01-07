@@ -1,79 +1,29 @@
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import apiClient from "services/apiClient"
-import {Stars, StarsInput } from "components"
-import { useAuthContext } from "contexts/auth"
-import { formatRating, formatDate } from "../../utils/format"
-import "./PostDetail.css"
-import { usePostContext } from "contexts/posts"
-
-const fetchPostById = async ({ postId, setIsFetching, setError, setPost, setCaption }) => {
-  setIsFetching(true)
-
-  const { data, error } = await apiClient.fetchPostById(postId)
-  if (data) {
-    setPost(data.post)
-    setCaption(data.post.caption)
-  }
-  if (error) {
-    setError(error)
-  }
-
-  setIsFetching(false)
-}
+import { usePostDetail } from "hooks/usePostDetail";
+import { useParams } from 'react-router-dom';
+import { Stars, StarsInput } from "components";
+import { formatRating, formatDate } from "../../utils/format";
+import "./PostDetail.css";
 
 export default function PostDetail() {
-  const { user } = useAuthContext()
-  const { updatePost } = usePostContext()
-  const { postId } = useParams()
-  const [post, setPost] = useState(null)
-  const [rating, setRating] = useState(null)
-  const [caption, setCaption] = useState("")
-  const [isFetching, setIsFetching] = useState(false)
-  const [isUpdating, setIsUpdating] = useState(false)
-  const [isSavingRating, setIsSavingRating] = useState(false)
-  const [error, setError] = useState(null)
+  const { postId} = useParams()
+  const {
+    handleOnSaveRating,
+    handleOnUpdate,
+    isSavingRating,
+    error,
+    post,
+    rating,
+    setRating,
+    isFetching,
+    isUpdating,
+    caption,
+    setCaption,
+    userIsLoggedIn,
+    userOwnsPost,
+  } = usePostDetail(postId);
 
-  useEffect(() => {
-    fetchPostById({ postId, setIsFetching, setError, setPost, setCaption })
-  }, [postId])
-
-  const handleOnUpdate = async () => {
-    setIsUpdating(true)
-
-    const postUpdate = { caption }
-
-    const { data, error } = await apiClient.updatePost({ postId, postUpdate })
-    if (data) {
-      setPost({ ...post, caption: data.post.caption })
-      updatePost({ postId, postUpdate })
-    }
-    if (error) {
-      setError(error)
-    }
-
-    setIsUpdating(false)
-  }
-
-  const handleOnSaveRating = async () => {
-    setIsSavingRating(true)
-
-    const { data, error } = await apiClient.createRatingForPost({ postId, rating })
-    if (data) {
-      await fetchPostById({ postId, setIsFetching, setError, setPost, setCaption })
-    }
-    if (error) {
-      setError(error)
-    }
-
-    setIsSavingRating(false)
-  }
-
-  const userIsLoggedIn = Boolean(user?.email)
-  const userOwnsPost = user?.username && post?.username === user?.username
-
-  if (!post && !isFetching) return null
-  if (!post) return <h1>Loading...</h1>
+  if (!post && !isFetching) return null;
+  if (!post) return <h1>Loading...</h1>;
 
   return (
     <div className="PostDetail">
@@ -108,7 +58,11 @@ export default function PostDetail() {
         {userOwnsPost ? (
           <div className="edit-post">
             <p>Edit your post</p>
-            <textarea value={caption} onChange={(event) => setCaption(event.target.value)} name="caption"></textarea>
+            <textarea
+              value={caption}
+              onChange={(event) => setCaption(event.target.value)}
+              name="caption"
+            ></textarea>
             <button className="btn" onClick={handleOnUpdate}>
               {isUpdating ? "Loading..." : "Save Post"}
             </button>
@@ -117,12 +71,16 @@ export default function PostDetail() {
           <div className="rate-setup">
             <p>Rate this setup</p>
             <StarsInput value={rating} setValue={setRating} max={10} />
-            <button className="btn" onClick={handleOnSaveRating} disabled={!userIsLoggedIn}>
+            <button
+              className="btn"
+              onClick={handleOnSaveRating}
+              disabled={!userIsLoggedIn}
+            >
               {isSavingRating ? "Loading..." : "Save Rating"}
             </button>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

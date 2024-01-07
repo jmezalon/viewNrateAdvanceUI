@@ -32,7 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/posts/:postId"
+            path="/posts/:postId/*"
             element={<ProtectedRoute element={<PostDetail />} />}
           />
           <Route path="*" element={<NotFound />} />
