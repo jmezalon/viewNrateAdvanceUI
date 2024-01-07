@@ -7,6 +7,7 @@ import {
   NotFound,
   PostDetail,
   Register,
+  ProtectedRoute,
 } from "components";
 import { AuthContextProvider } from "contexts/auth";
 import apiClient from "services/apiClient";
@@ -85,7 +86,7 @@ function App() {
           />
           <Route
             path="/posts/:postId"
-            element={<PostDetail updatePost={updatePost} />}
+            element={<ProtectedRoute element={<PostDetail updatePost={updatePost} />} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -2,7 +2,7 @@ import { useLoginForm } from "hooks/useLoginForm";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
-export default function Login() {
+export default function Login({ message }) {
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
     useLoginForm();
   return (
@@ -10,7 +10,7 @@ export default function Login() {
       <div className="card">
         <h2>Login</h2>
 
-        {errors.form && <span className="error">{errors.form}</span>}
+        {(errors.form || message) && <span className="error">{errors.form || message}</span>}
         <br />
 
         <div className="form">
