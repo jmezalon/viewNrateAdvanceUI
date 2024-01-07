@@ -3,8 +3,11 @@ export { default as Home } from "./Home/Home";
 export { default as Login } from "./Login/Login";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as NewPostForm } from "./NewPostForm/NewPostForm";
+export { default as Forbidden } from "./Forbidden/Forbidden";
 export { default as NotAllowed } from "./NotAllowed/NotAllowed";
+export { default as PostDetailView } from "./PostDetailView/PostDetailView"
 export { default as NotFound } from "./NotFound/NotFound";
+export { default as PostDetailEdit } from "./PostDetailEdit/PostDetailEdit"
 export { default as Post } from "./Post/Post";
 export { default as PostDetail } from "./PostDetail/PostDetail";
 export { default as ProtectedRoute } from "./ProtectedRoute/ProtectedRoute";

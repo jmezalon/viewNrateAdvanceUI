@@ -1,11 +1,14 @@
-import { usePostDetail } from "hooks/usePostDetail";
-import { useParams } from 'react-router-dom';
-import { Stars, StarsInput } from "components";
+import { Route, Routes } from "react-router-dom";
+import { usePostDetail, selectUserOwnsPost } from "hooks/usePostDetail";
+import { useAuthContext } from "contexts/auth";
+import { useParams } from "react-router-dom";
+import { Stars, PostDetailEdit, PostDetailView, NotFound } from "components";
 import { formatRating, formatDate } from "../../utils/format";
 import "./PostDetail.css";
 
 export default function PostDetail() {
-  const { postId} = useParams()
+  const { postId } = useParams();
+  const { user } = useAuthContext()
   const {
     handleOnSaveRating,
     handleOnUpdate,
@@ -18,9 +21,9 @@ export default function PostDetail() {
     isUpdating,
     caption,
     setCaption,
-    userIsLoggedIn,
-    userOwnsPost,
   } = usePostDetail(postId);
+
+  const userOwnsPost = selectUserOwnsPost(user, post)
 
   if (!post && !isFetching) return null;
   if (!post) return <h1>Loading...</h1>;
@@ -55,31 +58,34 @@ export default function PostDetail() {
       {error && <span className="error">Error: {error}</span>}
 
       <div className="actions">
-        {userOwnsPost ? (
-          <div className="edit-post">
-            <p>Edit your post</p>
-            <textarea
-              value={caption}
-              onChange={(event) => setCaption(event.target.value)}
-              name="caption"
-            ></textarea>
-            <button className="btn" onClick={handleOnUpdate}>
-              {isUpdating ? "Loading..." : "Save Post"}
-            </button>
-          </div>
-        ) : (
-          <div className="rate-setup">
-            <p>Rate this setup</p>
-            <StarsInput value={rating} setValue={setRating} max={10} />
-            <button
-              className="btn"
-              onClick={handleOnSaveRating}
-              disabled={!userIsLoggedIn}
-            >
-              {isSavingRating ? "Loading..." : "Save Rating"}
-            </button>
-          </div>
-        )}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PostDetailView
+                rating={rating}
+                setRating={setRating}
+                handleOnSaveRating={handleOnSaveRating}
+                isSavingRating={isSavingRating}
+                postId={postId}
+                userOwnsPost={userOwnsPost}
+              />
+            }
+          />
+          <Route
+            path="/edit"
+            element={
+              <PostDetailEdit
+                caption={caption}
+                setCaption={setCaption}
+                isUpdating={isUpdating}
+                handleOnUpdate={handleOnUpdate}
+                userOwnsPost={userOwnsPost}
+              />
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useAuthContext } from "contexts/auth";
 import { usePostContext } from "contexts/posts";
 import apiClient from "services/apiClient";
 
@@ -25,7 +24,6 @@ const fetchPostById = async ({
 };
 
 export const usePostDetail = (postId) => {
-  const { user, initialized } = useAuthContext();
   const { updatePost } = usePostContext();
   const [post, setPost] = useState(null);
   const [rating, setRating] = useState(null);
@@ -79,10 +77,10 @@ export const usePostDetail = (postId) => {
     setIsSavingRating(false);
   };
 
-  const userIsLoggedIn = initialized && Boolean(user?.username);
-  const userOwnsPost = user?.username && post?.username === user?.username;
-
   return {
-    handleOnSaveRating, handleOnUpdate, isSavingRating, error, post, rating, setRating, isFetching, isUpdating, caption, setCaption, userIsLoggedIn, userOwnsPost
+    handleOnSaveRating, handleOnUpdate, isSavingRating, error, post, rating, setRating, isFetching, isUpdating, caption, setCaption
   }
 };
+
+
+export const selectUserOwnsPost = (user, post) => user?.username && post?.username === user?.username
