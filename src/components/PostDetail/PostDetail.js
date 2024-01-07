@@ -5,6 +5,7 @@ import {Stars, StarsInput } from "components"
 import { useAuthContext } from "contexts/auth"
 import { formatRating, formatDate } from "../../utils/format"
 import "./PostDetail.css"
+import { usePostContext } from "contexts/posts"
 
 const fetchPostById = async ({ postId, setIsFetching, setError, setPost, setCaption }) => {
   setIsFetching(true)
@@ -21,8 +22,9 @@ const fetchPostById = async ({ postId, setIsFetching, setError, setPost, setCapt
   setIsFetching(false)
 }
 
-export default function PostDetail({ updatePost }) {
+export default function PostDetail() {
   const { user } = useAuthContext()
+  const { updatePost } = usePostContext()
   const { postId } = useParams()
   const [post, setPost] = useState(null)
   const [rating, setRating] = useState(null)

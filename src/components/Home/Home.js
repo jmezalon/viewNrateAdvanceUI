@@ -1,12 +1,14 @@
 import { NewPostForm, Post } from 'components'
+import { usePostContext } from 'contexts/posts';
 import "./Home.css";
 
-export default function Home({ isFetching, posts, addPost, error }) {
+export default function Home() {
+  const { isFetching, posts, error } = usePostContext()
   return (
     <div className="Home">
       <h1 className="intro">Rate My Setup</h1>
 
-      <NewPostForm addPost={addPost} />
+      <NewPostForm />
 
       <div className="feed">
         {error ? <h2 className="error">{error}</h2> : null}

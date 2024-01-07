@@ -1,40 +1,16 @@
-import { useState } from "react"
-import apiClient from "services/apiClient"
-import {NotAllowed} from "components"
-import { useAuthContext } from "contexts/auth"
-import "./NewPostForm.css"
+import { useNewPostForm } from "hooks/useNewPostForm";
+import { NotAllowed } from "components";
+import { useAuthContext } from "contexts/auth";
+import "./NewPostForm.css";
 
-export default function NewPostForm({ addPost }) {
-  const { user } = useAuthContext()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [form, setForm] = useState({
-    caption: "",
-    imageUrl: "",
-  })
-
-  const handleOnInputChange = (event) => {
-    setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
-  }
-
-  const handleOnSubmit = async () => {
-    setIsLoading(true)
-
-    const { data, error } = await apiClient.createPost({ caption: form.caption, imageUrl: form.imageUrl })
-    if (data) {
-      addPost(data.post)
-      setForm({ caption: "", imageUrl: "" })
-    }
-    if (error) {
-      setError(error)
-    }
-
-    setIsLoading(false)
-  }
+export default function NewPostForm() {
+  const { user } = useAuthContext();
+  const { form, error, handleOnInputChange, handleOnSubmit, isLoading } =
+    useNewPostForm();
 
   const renderForm = () => {
     if (!user?.email) {
-      return <NotAllowed />
+      return <NotAllowed />;
     }
     return (
       <div className="form">
@@ -64,8 +40,8 @@ export default function NewPostForm({ addPost }) {
           {isLoading ? "Loading..." : "Submit"}
         </button>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="NewPostForm">
@@ -77,5 +53,5 @@ export default function NewPostForm({ addPost }) {
         {renderForm()}
       </div>
     </div>
-  )
+  );
 }
