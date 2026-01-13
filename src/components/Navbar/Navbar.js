@@ -5,6 +5,7 @@ import "./Navbar.css";
 
 export default function Navbar() {
   const { user, handleLogout } = useAuthContext();
+  console.log(user);
   return (
     <nav className="Navbar">
       <div className="content">
@@ -27,7 +28,7 @@ export default function Navbar() {
           {user?.email ? (
             <>
               <li>
-                <span>{user.email}</span>
+                <span>{user.username}</span>
               </li>
 
               <li>
