@@ -99,6 +99,11 @@
   }
 
   .Navbar .content .links {
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+
+  .Navbar .content .links {
     gap: 12px;
   }
 }
