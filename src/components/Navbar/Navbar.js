@@ -5,7 +5,6 @@ import "./Navbar.css";
 
 export default function Navbar() {
   const { user, handleLogout } = useAuthContext();
-  console.log(user);
   return (
     <nav className="Navbar">
       <div className="content">
