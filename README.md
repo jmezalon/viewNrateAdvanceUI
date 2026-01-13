@@ -1,6 +1,6 @@
-# Rate My Setup Advanced React Starter
+# [Live App](https://view-nrate-advance-ui.vercel.app/)
 
-This repo stores the code for the React UI that powers the Rate My Setup application used in the Advanced PERN Stack tutorial series.
+This repo stores the code for the React UI that powers the Rate My Setup application using the Advanced PERN Stack.
 
 ## Dev Setup
 
