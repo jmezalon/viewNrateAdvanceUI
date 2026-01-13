@@ -22,6 +22,16 @@
   justify-content: center;
 }
 .NotFound .cta h1 {
-  font-size: 90px;
+  font-size: clamp(48px, 10vw, 90px);
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 640px) {
+  .NotFound {
+    padding: 0 var(--side-padding);
+  }
+
+  .NotFound .cta {
+    min-height: 300px;
+  }
 }
