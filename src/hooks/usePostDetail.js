@@ -21,6 +21,7 @@ const fetchPostById = async ({
   }
 
   setIsFetching(false);
+  return data?.post ?? null;
 };
 
 export const usePostDetail = (postId) => {
@@ -62,13 +63,16 @@ export const usePostDetail = (postId) => {
       rating,
     });
     if (data) {
-      await fetchPostById({
+      const updatedPost = await fetchPostById({
         postId,
         setIsFetching,
         setError,
         setPost,
         setCaption,
       });
+      if (updatedPost?.rating !== undefined) {
+        updatePost({ postId, postUpdate: { rating: updatedPost.rating } });
+      }
     }
     if (error) {
       setError(error);
