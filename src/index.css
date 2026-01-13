@@ -94,6 +94,21 @@ button:disabled {
   }
 }
 
+@media screen and (max-width: 900px) {
+  :root {
+    --content-width: 100%;
+    --side-padding: 24px;
+    --navbar-height: 90px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  :root {
+    --side-padding: 16px;
+    --navbar-height: 110px;
+  }
+}
+
 /* Rules for sizing the icon. */
 .material-icons.md-18 {
   font-size: 18px;

@@ -10,9 +10,9 @@
 
 .Home .intro {
   margin: 40px 0;
-}
-.Home .intro {
-  font-size: 80px;
+  font-size: clamp(36px, 6vw, 80px);
+  text-align: center;
+  padding: 0 var(--side-padding);
 }
 
 .Home .feed {
@@ -22,4 +22,14 @@
   flex-direction: column;
   gap: 50px;
   padding-bottom: 100px;
+  width: 100%;
+  padding-left: var(--side-padding);
+  padding-right: var(--side-padding);
+}
+
+@media screen and (max-width: 640px) {
+  .Home .feed {
+    gap: 32px;
+    padding-bottom: 60px;
+  }
 }
